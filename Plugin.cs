@@ -10,16 +10,18 @@ using On;
 using RWCustom;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using TemplateMod.Creatures;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-#pragma warning disable CS0618
 
+#pragma warning disable CS0618
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 
@@ -34,6 +36,9 @@ public partial class Plugin : BaseUnityPlugin
 
     static Plugin()
     {
+        var harmony = new Harmony(GUID);
+        // 2. 어셈블리 내 모든 [HarmonyPatch] 속성을 찾아서 적용
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
         Console.WriteLine("Plugin static constructor executed.");
     }
 
@@ -58,10 +63,11 @@ public partial class Plugin : BaseUnityPlugin
             // 오류가 발생하여 catch 블록으로 이동하면,
             // IsInit = true; 코드는 실행되지 못하고 건너뛰어져.
             IsInit = true;
-            
-            
-         
-            LogAtlases();
+
+
+            // 디버그용
+            //LogAtlases();
+            Futile.atlasManager.LogAllElementNames();
 
             //Your hooks go here
             Hooks.Apply();
@@ -77,7 +83,7 @@ public partial class Plugin : BaseUnityPlugin
         }
     }
     
-    public void LogAtlases()
+    /*public void LogAtlases()
     {
         var atlasManager = Futile.atlasManager;
 
@@ -85,5 +91,5 @@ public partial class Plugin : BaseUnityPlugin
         {
             Console.WriteLine($"{item.Value.name}");
         }
-    }
+    }*/
 }

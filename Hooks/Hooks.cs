@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using HarmonyLib; // HarmonyLib 네임스페이스를 사용해야 해.
+using HarmonyLib;
+using BepInEx;
+using BepInEx.Logging;
 
 namespace TemplateMod
 {
@@ -23,39 +25,27 @@ namespace TemplateMod
 
         // 🚨 타겟 클래스를 FAtlasManager로 지정
         // ... (Hooks 클래스 내부)
-        /*[HarmonyPatch(typeof(FAtlasManager), "LogAllElementNames")]
-        class Patch_LogAllElementNames
+        [HarmonyPatch(typeof(FAtlasManager), "LogAllElementNames")]
+        public class Patch_LogAllElementNames
         {
-            static void Postfix(FAtlasManager __instance)
+            static void Prefix(FAtlasManager __instance)
             {
-                // 1. 🚨 필드 이름을 "_atlases"로 정확히 지정하여 값 가져오기
-                // 필드가 Private이지만, Harmony의 AccessTools는 Private 필드 접근을 지원해.
-                List<FAtlas> allAtlases = AccessTools.Field(typeof(FAtlasManager), "_atlases")
-                                                 .GetValue(__instance) as List<FAtlas>;
+                Console.WriteLine("--- Logging ALL FAtlas Elements ---");
 
-                Console.WriteLine("--- Logging ALL FAtlas Elements (Accessing _atlases) ---");
+                // FAtlasManager가 관리하는 모든 아틀라스(_atlases)를 순회하며 요소를 출력해야 합니다.
+                // __instance._atlases는 private 필드일 가능성이 높으므로, 리플렉션이 필요할 수 있습니다.
 
-                if (allAtlases != null)
+                // 만약 'atlases'라는 public 속성이 있다면:
+                foreach (FAtlas atlas in __instance._atlases)
                 {
-                    foreach (FAtlas atlas in allAtlases)
+                    Console.WriteLine($"[Atlas: {atlas.name}]");
+                    foreach (FAtlasElement element in atlas.elements)
                     {
-                        Console.WriteLine($"[Atlas: {atlas.name}]");
-
-                        // FAtlas.elements는 public이라고 가정하고 진행
-                        foreach (FAtlasElement element in atlas.elements)
-                        {
-                            Console.WriteLine($" - {element.name}");
-                        }
+                        Console.WriteLine($" - {element.name}");
                     }
                 }
-                else
-                {
-                    // 이 로그가 뜨면 필드 이름을 다시 확인해야 함
-                    Console.WriteLine("Error: Could not retrieve _atlases list via reflection.");
-                }
-
                 Console.WriteLine("-----------------------------------");
             }
-        }*/
+        }
     }
 }
