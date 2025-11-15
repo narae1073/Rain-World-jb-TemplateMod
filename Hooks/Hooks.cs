@@ -14,14 +14,45 @@ namespace TemplateMod
     {
         public static void Apply()
         {
+            // 점프 시 점프 부스트를 1.5배로 증가시키는 훅
             On.Player.Jump += (orig, self) =>
             {
                 orig(self);
                 self.jumpBoost = self.jumpBoost * 1.5f;
             };
 
+            On.DebugMouse.Update += DebugMouse_Update;
+
             Console.WriteLine("Hooks applied successfully");
         }
+
+        private static void DebugMouse_Update(On.DebugMouse.orig_Update orig, DebugMouse self, bool eu)
+        {
+            orig(self, eu);
+
+            // 방이 AI 준비가 안 되었거나 뷰잉 중이 아니면 리턴
+            if (!self.room.readyForAI || !self.room.BeingViewed) return;
+
+            // 기존 텍스트를 가져와서 수정합니다.
+            string text = self.label.text;
+
+            // 마우스 위치의 AI 타일 정보를 가져옵니다.
+            AItile aiTile = self.room.aimap.getAItile(self.pos);
+            int terrainProximity = self.room.aimap.getTerrainProximity(self.pos);
+            int roomSizeX = self.room.abstractRoom.size.x;
+            int roomSizeY = self.room.abstractRoom.size.y;
+
+            // 텍스트에 AI 타일 정보를 추가합니다.
+            text += $"\n\n--aiTile--\n" +
+                $"acc: {aiTile.acc}\n" +
+                $"floorAltitude: {aiTile.floorAltitude}    smoothed: {aiTile.smoothedFloorAltitude}\n" +
+                $"terrain prox: {terrainProximity}\n" +
+                $"room size: {roomSizeX}x{roomSizeY}";
+
+            self.label.text = text;
+            self.label2.text = text;
+        }
+
 
         // 🚨 타겟 클래스를 FAtlasManager로 지정
         // ... (Hooks 클래스 내부)
