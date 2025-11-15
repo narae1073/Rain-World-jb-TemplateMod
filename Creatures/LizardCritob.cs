@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DevInterface;
+using Fisobs.Core;
+using Fisobs.Creatures;
+using Fisobs.Sandbox;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevInterface;
-using Fisobs.Core;
-using Fisobs.Creatures;
-using Fisobs.Sandbox;
 using UnityEngine;
 
 
@@ -17,7 +18,7 @@ namespace TemplateMod.Creatures
         public LizardCritob() : base(critobTemplate.TemplateLizard)
         {
             
-            Icon = new SimpleIcon("Kill_Black_Lizard", new Color(0.7254f, 1f, 0.9176f)); 
+            Icon = new SimpleIcon("Kill_Black_Lizard", new Color(1f, 0.714f, 0.945f)); 
             LoadedPerformanceCost = 100f;
             SandboxPerformanceCost = new SandboxPerformanceCost(0.5f, 0.5f); // (linear cost, exponential cost)
             RegisterUnlock(KillScore.Configurable(6), critobTemplate.SandboxUnlockID.TemplateLizard, parent: MultiplayerUnlocks.SandboxUnlockID.Slugcat); // 죽이면 6점을 얻음 
@@ -59,25 +60,35 @@ namespace TemplateMod.Creatures
             {
                 // 4. 기존 templateBreed()의 커스텀 로직을 여기에 삽입
                 
-                breedparams.standardColor = new(0.7254f, 1f, 0.9176f);
+                breedparams.standardColor = new(1f, 0.714f, 0.945f);
 
                 temp.doPreBakedPathing = false;
-                temp.preBakedPathingAncestor = StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.BlueLizard);
+                temp.preBakedPathingAncestor = StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.WhiteLizard);
                 temp.requireAImap = true;
 
                 // For terrainSpeeds, 1 is Floor, 2 is Corridor,
                 // 3 is Climbing, 4 is Walls, 5 is Ceiling.
                 List<TileTypeResistance> acclist = new List<TileTypeResistance>();
                 List<TileConnectionResistance> acclist2 = new List<TileConnectionResistance>();
-                breedparams.baseSpeed = 1f;
-                breedparams.terrainSpeeds[1] = new(2f, 2f, 2f, 2f);
-                acclist.Add(new TileTypeResistance(AItile.Accessibility.Floor, 40f, PathCost.Legality.Allowed));
-                breedparams.terrainSpeeds[2] = new(2f, 2f, 2f, 2f);
-                acclist.Add(new TileTypeResistance(AItile.Accessibility.Corridor, 40f, PathCost.Legality.Allowed));
-                breedparams.terrainSpeeds[3] = new(2f, 2f, 2f, 2f);
-                acclist.Add(new TileTypeResistance(AItile.Accessibility.Climb, 40f, PathCost.Legality.Allowed));
-                breedparams.terrainSpeeds[4] = new(2f, 2f, 2f, 2f);
-                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.DropToClimb, 40f, PathCost.Legality.Allowed));
+                breedparams.baseSpeed = 1.5f;
+                temp.waterPathingResistance = 5f;
+                breedparams.terrainSpeeds[1] = new LizardBreedParams.SpeedMultiplier(1.5f, 1.5f, 1.5f, 1f);
+                acclist.Add(new TileTypeResistance(AItile.Accessibility.Floor, 1f, PathCost.Legality.Allowed));
+                breedparams.terrainSpeeds[3] = new LizardBreedParams.SpeedMultiplier(1f, 1f, 1f, 1f);
+                acclist.Add(new TileTypeResistance(AItile.Accessibility.Corridor, 1.2f, PathCost.Legality.Allowed));
+                breedparams.terrainSpeeds[4] = new LizardBreedParams.SpeedMultiplier(1f, 1f, 1f, 1f);
+                acclist.Add(new TileTypeResistance(AItile.Accessibility.Climb, 0.8f, PathCost.Legality.Allowed));
+                breedparams.terrainSpeeds[5] = new LizardBreedParams.SpeedMultiplier(0.8f, 1f, 1f, 1f);
+                acclist.Add(new TileTypeResistance(AItile.Accessibility.Wall, 1f, PathCost.Legality.Allowed));
+                breedparams.terrainSpeeds[6] = new LizardBreedParams.SpeedMultiplier(0.6f, 1f, 1f, 1f);
+                acclist.Add(new TileTypeResistance(AItile.Accessibility.Ceiling, 1.2f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.DropToFloor, 10f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.DropToClimb, 10f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.ShortCut, 2f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.ReachOverGap, 1.1f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.ReachUp, 1.1f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.ReachDown, 1.1f, PathCost.Legality.Allowed));
+                acclist2.Add(new TileConnectionResistance(MovementConnection.MovementType.CeilingSlope, 20f, PathCost.Legality.Allowed));
 
                 // 공용?
                 breedparams.bodyRadFac = 1f; //
@@ -87,9 +98,9 @@ namespace TemplateMod.Creatures
                 // 도마뱀마다 다름
                 //breedparams.biteDelay = 12;
                 //breedparams.attemptBiteRadius = 400f;
-                //breedparams.toughness = 1f;
+                breedparams.toughness = 50f;
                 //breedparams.regainFootingCounter = 10;
-                //breedparams.bodyMass = 1.5f;
+                breedparams.bodyMass = 1f;
                 //breedparams.bodySizeFac = 1f;
                 //breedparams.maxMusclePower = 50f;
                 //breedparams.wiggleSpeed = 0.6f;
@@ -118,12 +129,12 @@ namespace TemplateMod.Creatures
                 //breedparams.limbQuickness = 0.5f;
                 //breedparams.limbGripDelay = 1;
                 //breedparams.smoothenLegMovement = true;
-                breedparams.walkBob = 5f; // 걷기 위아래 흔들림
+                breedparams.walkBob = 3f; // 걷기 위아래 흔들림
                 //// 꼬리
-                //breedparams.tailSegments = 5;
-                //breedparams.tailStiffness = 200f;
-                //breedparams.tailColorationStart = 0.5f;
-                //breedparams.tailColorationExponent = 4f;
+                breedparams.tailSegments = 5;
+                breedparams.tailStiffness = 400f;
+                breedparams.tailColorationStart = 1f;
+                breedparams.tailColorationExponent = 0.2f;
                 //breedparams.headSize = 1f;
                 //breedparams.neckStiffness = 0.2f;
                 //breedparams.jawOpenAngle = 40f;
@@ -131,6 +142,8 @@ namespace TemplateMod.Creatures
                 breedparams.headGraphics = new int[] {1, 1, 2, 0, 2};
                 //breedparams.framesBetweenLookFocusChange = 50;
                 //breedparams.tamingDifficulty = 1f;
+                // 혀
+                //breedparams.tongue = true;
             }
 
             
