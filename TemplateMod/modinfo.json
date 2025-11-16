@@ -1,0 +1,10 @@
+{
+    "id": "none.mynicerainworldmod",
+    "name": "My Nice Rain World Mod",
+    "version": "1.0.0",
+    "authors": "achizase",
+    "description": "magnificent creatures",
+    "requirements": ["fisobs"],
+    "requirements_names": ["Fisobs"],
+    "checksum_override_version": true
+}
