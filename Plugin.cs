@@ -6,6 +6,7 @@ using HarmonyLib;
 using IL;
 using IL.MoreSlugcats;
 using JetBrains.Annotations;
+using MoreSlugcats;
 using On;
 using RWCustom;
 using System;
@@ -36,6 +37,7 @@ public partial class Plugin : BaseUnityPlugin
 
     static Plugin()
     {
+
         var harmony = new Harmony(GUID);
         // 2. 어셈블리 내 모든 [HarmonyPatch] 속성을 찾아서 적용
         harmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -45,8 +47,10 @@ public partial class Plugin : BaseUnityPlugin
     public void OnEnable()
     {
         Content.Register(new CrateFisobs());
-        Content.Register(new LizardCritob());
+        Content.Register(new LavenderLizardCritob());
         On.RainWorld.OnModsInit += RainWorldOnOnModsInit;
+        
+
     }
 
     private bool IsInit;

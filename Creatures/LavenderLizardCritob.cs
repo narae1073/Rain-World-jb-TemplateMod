@@ -9,30 +9,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using RWCustom;
+using Watcher;
 
 namespace TemplateMod.Creatures
 {
-    public class LizardCritob : Critob
+    public class LavenderLizardCritob : Critob
     {
-        public LizardCritob() : base(critobTemplate.TemplateLizard)
+        public LavenderLizardCritob() : base(critobTemplate.LavenderLizard)
         {
             
             Icon = new SimpleIcon("Kill_Black_Lizard", new Color(1f, 0.714f, 0.945f)); 
             LoadedPerformanceCost = 100f;
             SandboxPerformanceCost = new SandboxPerformanceCost(0.5f, 0.5f); // (linear cost, exponential cost)
-            RegisterUnlock(KillScore.Configurable(6), critobTemplate.SandboxUnlockID.TemplateLizard, parent: MultiplayerUnlocks.SandboxUnlockID.Slugcat); // 죽이면 6점을 얻음 
-            Console.WriteLine("Lizard Critob created!!!!!!!!!!!!!!!!!!!!!!!");
+            RegisterUnlock(KillScore.Configurable(6), critobTemplate.SandboxUnlockID.LavenderLizard, parent: MultiplayerUnlocks.SandboxUnlockID.Slugcat); // 죽이면 6점을 얻음 
+            Console.WriteLine("Lavender Lizard Critob created!!!!!!!!!!!!!!!!!!!!!!!");
         }
 
+        // LizardAI()에서 패서, 여러 가지 트래커, 수퍼히어링, 덴 파인더, 행동, AI 추가
         public override ArtificialIntelligence CreateRealizedAI(AbstractCreature acrit)
         {
+            
             return new LizardAI(acrit, acrit.world);
         }
 
+        // Lizard()에서 바디청크와 바디청크 커넥션 만듦. 애니메이션 추가.
+        // 혀, 목소리, 색, (점프, 블리자드) 모듈, StartUp()
+        // Lizard 클래스는 도마뱀의 행동을 구현함.
+
+        // registers the color and rot module for your lizard
         public override Creature CreateRealizedCreature(AbstractCreature acrit)
         {
-            return new Lizard(acrit, acrit.world);
+            return new LavenderLizard(acrit, acrit.world);
         }
 
         public override CreatureState CreateState(AbstractCreature acrit)
@@ -44,13 +52,14 @@ namespace TemplateMod.Creatures
         {
             // return LizardBreeds.BreedTemplate(Type, StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.LizardTemplate), null, null, null);
             var temp = LizardBreeds.BreedTemplate(
-                type: CreatureTemplate.Type.BlackLizard,
-                lizardAncestor: StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.LizardTemplate),
+                type: CreatureTemplate.Type.BlueLizard,
+                lizardAncestor: StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.BlueLizard),
                 pinkTemplate: null,
                 blueTemplate: null,
                 greenTemplate: null
             );
 
+            
             temp.type = Type; // Critob.Type (LizardCritob 클래스에 의해 자동으로 설정됨)
             temp.name = "Template Lizard";
 
@@ -60,7 +69,7 @@ namespace TemplateMod.Creatures
             {
                 // 4. 기존 templateBreed()의 커스텀 로직을 여기에 삽입
                 
-                breedparams.standardColor = new(1f, 0.714f, 0.945f);
+                //breedparams.standardColor = new(1f, 0.714f, 0.945f);
 
                 temp.doPreBakedPathing = false;
                 temp.preBakedPathingAncestor = StaticWorld.GetCreatureTemplate(CreatureTemplate.Type.WhiteLizard);
@@ -104,7 +113,7 @@ namespace TemplateMod.Creatures
                 //breedparams.bodySizeFac = 1f;
                 //breedparams.maxMusclePower = 50f;
                 //breedparams.wiggleSpeed = 0.6f;
-                //breedparams.bodyStiffnes = 0.2f;
+                //breedparams.bodyStiffnes = 0.2f; // 바디청크의 elasticity에 기여. 0에서 1 사이
                 //breedparams.danger = 1f;
                 //// Lounge parameters
                 //breedparams.canExitLounge = false;
@@ -181,7 +190,7 @@ namespace TemplateMod.Creatures
         }
         public override Color DevtoolsMapColor(AbstractCreature acrit)
         {
-            return new Color(0.7254f, 1f, 0.9176f);
+            return new Color(1f, 0.714f, 0.945f);
         }
 
         /*private static CreatureTemplate templateBreed(On.LizardBreeds.orig_BreedTemplate_Type_CreatureTemplate_CreatureTemplate_CreatureTemplate_CreatureTemplate orig, CreatureTemplate.Type type, CreatureTemplate lizardAncestor, CreatureTemplate pinkTemplate, CreatureTemplate blueTemplate, CreatureTemplate greenTemplate)

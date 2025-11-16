@@ -13,28 +13,28 @@ namespace TemplateMod.Creatures
         // "TemplateLizard"라는 문자열 상수로 대체돼.
         // 이 코드는 **"TemplateLizard"**라는 문자열을 고유 ID로 사용하는,
         // 샌드박스 지원이 되는 새로운 크리처 타입을 정의하는 거야.
-        public static CreatureTemplate.Type TemplateLizard = new(nameof(TemplateLizard), true);
+        public static CreatureTemplate.Type LavenderLizard = new(nameof(LavenderLizard), true);
         
         public static void UnregisterValues()
         {
-            if (TemplateLizard != null)
+            if (LavenderLizard != null)
             {
-                TemplateLizard.Unregister();
-                TemplateLizard = null;
+                LavenderLizard.Unregister();
+                LavenderLizard = null;
             }
         }
 
         // 아레나에서 열 수 있게 함 
         public static class SandboxUnlockID
         {
-            public static MultiplayerUnlocks.SandboxUnlockID TemplateLizard = new(nameof(TemplateLizard), true);
+            public static MultiplayerUnlocks.SandboxUnlockID LavenderLizard = new(nameof(LavenderLizard), true);
 
             public static void UnregisterValues()
             {
-                if (TemplateLizard != null)
+                if (LavenderLizard != null)
                 {
-                    TemplateLizard.Unregister();
-                    TemplateLizard = null;
+                    LavenderLizard.Unregister();
+                    LavenderLizard = null;
                 }
             }
         }
