@@ -14,16 +14,18 @@ namespace TemplateMod.Creatures
         // also if you need to know what cosmetics there are, open dnspy and go into the LizardCosmetics namespace in Assembly-CSharp
         public LavenderLizardGraphics(LavenderLizard ow) : base(ow)
         {
-            var state = UnityEngine.Random.state;
-            UnityEngine.Random.InitState(ow.abstractPhysicalObject.ID.RandomSeed);
+            //var state = UnityEngine.Random.state;
+            //UnityEngine.Random.InitState(ow.abstractPhysicalObject.ID.RandomSeed);
             var spriteIndex = startOfExtraSprites + extraSprites;
-            spriteIndex = AddCosmetic(spriteIndex, new TailTuft(this, spriteIndex));
+            //spriteIndex = AddCosmetic(spriteIndex, new TailTuft(this, spriteIndex));
             spriteIndex = AddCosmetic(spriteIndex, new TailFin(this, spriteIndex));
-            spriteIndex = AddCosmetic(spriteIndex, new TailGeckoScales(this, spriteIndex));
+            //spriteIndex = AddCosmetic(spriteIndex, new TailGeckoScales(this, spriteIndex));
+            spriteIndex = AddCosmetic(spriteIndex, new LongHeadScales(this, spriteIndex));
+            spriteIndex = AddCosmetic(spriteIndex, new LongShoulderScales(this, spriteIndex));
             //spriteIndex = AddCosmetic(spriteIndex, new ShortBodyScales(this, spriteIndex));
             //spriteIndex = AddCosmetic(spriteIndex, new Antennae(this, spriteIndex));
 
-            UnityEngine.Random.state = state;
+            //UnityEngine.Random.state = state;
         }
     }
 }

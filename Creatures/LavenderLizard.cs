@@ -24,14 +24,22 @@ namespace TemplateMod.Creatures
             if (rotModule is LizardRotModule mod && (State as LizardState)?.rotType != LizardState.RotType.Slight)
                 effectColor = Color.Lerp(effectColor, mod.RotEyeColor, (State as LizardState)?.rotType == LizardState.RotType.Opossum ? .2f : .8f);
 
-            UnityEngine.Random.state = state;
+            //UnityEngine.Random.state = state;
 
             // 이곳에 TestLizard만의 추가 초기화 로직을 넣을 수 있습니다.
             // 예를 들어, 커스텀 모듈 추가 등.
         }
 
         // add graphics module
-        public override void InitiateGraphicsModule() => graphicsModule ??= new LavenderLizardGraphics(this);
+        public override void InitiateGraphicsModule()
+        {
+            // graphicsModule이 null일 때만 TestLizardGraphics를 생성.
+            graphicsModule ??= new LavenderLizardGraphics(this);
+
+            // 💡 여기서 커스텀 코스메틱을 추가합니다.
+            // Random 시드에 의존하는 코드가 아닌, 고정된 값을 사용합니다.
+            //(graphicsModule as LavenderLizardGraphics)?.AddCosmetic(new TailFin(this, spriteIndex));
+        }
 
         // piece of code that fixes a bug with fisobs
         public override void LoseAllGrasps() => ReleaseGrasp(0);

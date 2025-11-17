@@ -57,11 +57,11 @@ namespace TemplateMod.Creatures
                 pinkTemplate: null,
                 blueTemplate: null,
                 greenTemplate: null
-            );
+            ); 
 
             
             temp.type = Type; // Critob.Type (LizardCritob 클래스에 의해 자동으로 설정됨)
-            temp.name = "Template Lizard";
+            temp.name = "Lavender Lizard";
 
             var breedparams = temp.breedParameters as LizardBreedParams;
 
@@ -101,16 +101,16 @@ namespace TemplateMod.Creatures
 
                 // 공용?
                 breedparams.bodyRadFac = 1f; //
-                breedparams.bodyLengthFac = 1.5f; // 몸 길이가 길어짐
+                breedparams.bodyLengthFac = 1.2f; // 몸 길이가 길어짐
                 breedparams.pullDownFac = 1f; // 아래로 잡아당기는 힘, 중력?
 
                 // 도마뱀마다 다름
                 //breedparams.biteDelay = 12;
                 //breedparams.attemptBiteRadius = 400f;
-                breedparams.toughness = 50f;
+                breedparams.toughness = 10f;
                 //breedparams.regainFootingCounter = 10;
                 breedparams.bodyMass = 1f;
-                //breedparams.bodySizeFac = 1f;
+                breedparams.bodySizeFac = 1f;
                 //breedparams.maxMusclePower = 50f;
                 //breedparams.wiggleSpeed = 0.6f;
                 //breedparams.bodyStiffnes = 0.2f; // 바디청크의 elasticity에 기여. 0에서 1 사이
@@ -126,23 +126,23 @@ namespace TemplateMod.Creatures
                 //breedparams.loungeJumpyness = 400f;
                 //breedparams.loungeDelay = 1;
                 //// Vision parameters
-                temp.visualRadius = 900f;
+                temp.visualRadius = 400f;
                 temp.throughSurfaceVision = 1f;
                 temp.movementBasedVision = 1f;
                 //// 몸체
-                //breedparams.limbSize = 1f;
-                //breedparams.limbThickness = 1f;
+                breedparams.limbSize = 1f;
+                breedparams.limbThickness = 1;
                 //breedparams.liftFeet = 0.3f;
                 //breedparams.feetDown = 5f;
                 //breedparams.limbSpeed = 5f;
                 //breedparams.limbQuickness = 0.5f;
                 //breedparams.limbGripDelay = 1;
-                //breedparams.smoothenLegMovement = true;
+                breedparams.smoothenLegMovement = false;
                 breedparams.walkBob = 3f; // 걷기 위아래 흔들림
                 //// 꼬리
-                breedparams.tailSegments = 5;
-                breedparams.tailStiffness = 400f;
-                breedparams.tailColorationStart = 1f;
+                breedparams.tailSegments = 10;
+                breedparams.tailStiffness = 800f;
+                breedparams.tailColorationStart = 0.5f;
                 breedparams.tailColorationExponent = 0.2f;
                 //breedparams.headSize = 1f;
                 //breedparams.neckStiffness = 0.2f;
@@ -162,14 +162,16 @@ namespace TemplateMod.Creatures
         public override void EstablishRelationships()
         {
             var s = new Relationships(Type);
-            s.Eats(CreatureTemplate.Type.Slugcat, 1f); // 두번째 매개변수는 강도
+            s.Eats(CreatureTemplate.Type.Slugcat, 0); // 두번째 매개변수는 강도
+            s.IsInPack(CreatureTemplate.Type.Slugcat, 1f); // 같은 종과 무리를 이룸
+            s.PlaysWith(CreatureTemplate.Type.Slugcat, 1f);
             s.Eats(CreatureTemplate.Type.LanternMouse, 1f);
         }
 
         public override IEnumerable<string> WorldFileAliases()
         {
             // 월드.txt 파일 에서 두 가지 별칭 중 하나로 인식될 수 있음.
-            return new string[] { "templatelizard", "templiz" };
+            return new string[] { "lavenderlizard", "lavliz" };
         }
 
         // 데브툴의 Room Attractiveness 패널에 보이는 모습을 설정?
@@ -186,7 +188,7 @@ namespace TemplateMod.Creatures
         // 데브툴의 맵 탭에서 보이는 이름과 색을 설정
         public override string DevtoolsMapName(AbstractCreature acrit)
         {
-            return "TLiz"; // keep this short!
+            return "LavLiz"; // keep this short!
         }
         public override Color DevtoolsMapColor(AbstractCreature acrit)
         {
