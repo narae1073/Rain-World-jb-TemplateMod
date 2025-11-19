@@ -14,11 +14,11 @@ namespace TemplateMod
         {
             return apo is CrateAbstract crate ? (int)(crate.hue * 1000f) : 0;
         }
-    
+
 
         public override Color SpriteColor(int data)
         {
-            return RWCustom.Custom.HSL2RGB(data / 1000f, 0.1f, 0.1f);
+            return RWCustom.Custom.HSL2RGB(data / 1000f, 0.6f, 0.7f);
         }
 
         public override string SpriteName(int data)

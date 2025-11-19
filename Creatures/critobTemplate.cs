@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace TemplateMod.Creatures
         // 이 코드는 **"TemplateLizard"**라는 문자열을 고유 ID로 사용하는,
         // 샌드박스 지원이 되는 새로운 크리처 타입을 정의하는 거야.
         public static CreatureTemplate.Type LavenderLizard = new(nameof(LavenderLizard), true);
-        
+
         public static void UnregisterValues()
         {
             if (LavenderLizard != null)
@@ -42,6 +42,6 @@ namespace TemplateMod.Creatures
 
     }
 
-    
-    
+
+
 }

@@ -49,7 +49,7 @@ public partial class Plugin : BaseUnityPlugin
         Content.Register(new CrateFisobs());
         Content.Register(new LavenderLizardCritob());
         On.RainWorld.OnModsInit += RainWorldOnOnModsInit;
-        
+
 
     }
 
@@ -60,7 +60,7 @@ public partial class Plugin : BaseUnityPlugin
 
         // 초기화 로직이 한 번만 실행되도록 방지. 처음에는 false이므로 진입.
         if (IsInit) return;
-        
+
         try
         {
             // 초기화 실패 시: Content.Register나 LogAtlases()에서
@@ -76,24 +76,24 @@ public partial class Plugin : BaseUnityPlugin
             //Your hooks go here
             Hooks.Apply();
 
-            Console.WriteLine("My Nice Rain World Mod loaded!");
+            Console.WriteLine("My Nice Rain World Mod loaded! GOD WHY DID MY PROJECT GET FUCKED");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("--- OnEnable/Content Registration FAILED! ---");
+            Console.WriteLine(" OnEnable/Content Registration FAILED! ");
             Console.WriteLine($"Error Message: {ex.Message}");
             Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("");
         }
     }
-    
+
     /*public void LogAtlases()
     {
-        var atlasManager = Futile.atlasManager;
+     var atlasManager = Futile.atlasManager;
 
-        foreach (KeyValuePair<string, FAtlasElement> item in atlasManager._allElementsByName)
-        {
-            Console.WriteLine($"{item.Value.name}");
-        }
+     foreach (KeyValuePair<string, FAtlasElement> item in atlasManager._allElementsByName)
+     {
+   Console.WriteLine($"{item.Value.name}");
+     }
     }*/
 }

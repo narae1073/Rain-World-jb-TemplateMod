@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "authors": "achizase",
     "description": "magnificent creatures",
-    "requirements": ["fisobs"],
-    "requirements_names": ["Fisobs"],
+    "requirements": [ "fisobs" ],
+    "requirements_names": [ "Fisobs" ],
     "checksum_override_version": true
 }

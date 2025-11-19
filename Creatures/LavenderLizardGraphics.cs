@@ -11,7 +11,7 @@ namespace TemplateMod.Creatures
     sealed class LavenderLizardGraphics : LizardGraphics
     {
         // this determines what your lizard's cosmetics will be. the last two are random (ShortBodyScales and TailGeckoScales), the first is guaranteed (TailTuft)
-        // also if you need to know what cosmetics there are, open dnspy and go into the LizardCosmetics namespace in Assembly-CSharp
+        // also if you need to know what cosmetics there are, open dnspy and go into the LizardCosmetics namespace in AssemblyCSharp
         public LavenderLizardGraphics(LavenderLizard ow) : base(ow)
         {
             //var state = UnityEngine.Random.state;

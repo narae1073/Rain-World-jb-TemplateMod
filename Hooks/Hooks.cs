@@ -43,11 +43,11 @@ namespace TemplateMod
             int roomSizeY = self.room.abstractRoom.size.y;
 
             // 텍스트에 AI 타일 정보를 추가합니다.
-            text += $"\n\n--aiTile--\n" +
-                $"acc: {aiTile.acc}\n" +
-                $"floorAltitude: {aiTile.floorAltitude}    smoothed: {aiTile.smoothedFloorAltitude}\n" +
-                $"terrain prox: {terrainProximity}\n" +
-                $"room size: {roomSizeX}x{roomSizeY}";
+            text += $"\n\naiTile\n" +
+             $"acc: {aiTile.acc}\n" +
+             $"floorAltitude: {aiTile.floorAltitude} smoothed: {aiTile.smoothedFloorAltitude}\n" +
+             $"terrain prox: {terrainProximity}\n" +
+             $"room size: {roomSizeX}x{roomSizeY}";
 
             self.label.text = text;
             self.label2.text = text;
@@ -59,9 +59,9 @@ namespace TemplateMod
         [HarmonyPatch(typeof(FAtlasManager), "LogAllElementNames")]
         public class Patch_LogAllElementNames
         {
-            static void Prefix(FAtlasManager __instance)
+            static void Postfix(FAtlasManager __instance)
             {
-                Console.WriteLine("--- Logging ALL FAtlas Elements ---");
+                Console.WriteLine(" Logging ALL FAtlas Elements ");
 
                 // FAtlasManager가 관리하는 모든 아틀라스(_atlases)를 순회하며 요소를 출력해야 합니다.
                 // __instance._atlases는 private 필드일 가능성이 높으므로, 리플렉션이 필요할 수 있습니다.
@@ -72,10 +72,10 @@ namespace TemplateMod
                     Console.WriteLine($"[Atlas: {atlas.name}]");
                     foreach (FAtlasElement element in atlas.elements)
                     {
-                        Console.WriteLine($" - {element.name}");
+                        Console.WriteLine($"  {element.name}");
                     }
                 }
-                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("");
             }
         }
     }

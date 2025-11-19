@@ -19,8 +19,8 @@ namespace TemplateMod
         {
             scaleX = 1;
             scaleY = 1;
-            saturation = 0.2f;
-            hue = 0.3f;
+            saturation = 0.8f;
+            hue = 0.8f;
         }
 
         public override void Realize()
