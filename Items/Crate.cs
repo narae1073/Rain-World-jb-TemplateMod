@@ -16,11 +16,11 @@ namespace My_Nice_Rain_World_Mod.Items
     {
         // log counter for debugging
         private int logCounter = 0;
-        float bodyChunkRad = 20f;
+        float bodyChunkRad = 15f;
         int middleBodyChunkIndex = 0;
         float distance = 20f; // distance가 너무 길면 충돌이 일어나지 못함. 충돌이 일어나지 못하는건 elasticity와도 관계있음 
-        int edgeLength = 7;
-        float elasticity = 0.00005f;
+        int edgeLength = 1;
+        float elasticity = 0.02f;
         public Crate(CrateAbstract abstr) : base(abstr)
         {
             float mass = 3f;
@@ -161,7 +161,7 @@ namespace My_Nice_Rain_World_Mod.Items
             for (int i = 0; i < bodyChunks.Length; i++)
             {
                 str = atlasElements[i+500];
-                sLeaser.sprites[i] = new FSprite(str);
+                sLeaser.sprites[i] = new FSprite("DangleFruit0B");
             }
 
             AddToContainer(sLeaser, rCam, null);
@@ -186,7 +186,7 @@ namespace My_Nice_Rain_World_Mod.Items
         public void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
         {
             foreach (var sprite in sLeaser.sprites)
-                sprite.color = palette.blackColor;
+                sprite.color = palette.waterShineColor;
         }
 
         // FContainer? 는 널 값을 가질 수 있다는 의미
