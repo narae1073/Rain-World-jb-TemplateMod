@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Fisobs.Core;
 using IL.MoreSlugcats;
 
-namespace TemplateMod
+namespace My_Nice_Rain_World_Mod.Items
 {
     public class CrateAbstract : AbstractPhysicalObject
     {

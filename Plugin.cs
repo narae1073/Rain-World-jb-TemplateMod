@@ -18,7 +18,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
-using TemplateMod.Creatures;
+using My_Nice_Rain_World_Mod.Creatures;
+using My_Nice_Rain_World_Mod.Items;
+using My_Nice_Rain_World_Mod.Hooks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -26,7 +28,7 @@ using Debug = UnityEngine.Debug;
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 
-namespace TemplateMod;
+namespace My_Nice_Rain_World_Mod.Plugin;
 
 [BepInPlugin(GUID, Name, Version)]
 public partial class Plugin : BaseUnityPlugin
@@ -74,7 +76,7 @@ public partial class Plugin : BaseUnityPlugin
             Futile.atlasManager.LogAllElementNames();
 
             //Your hooks go here
-            Hooks.Apply();
+            HookApplier.Apply();
 
             Console.WriteLine("My Nice Rain World Mod loaded! GOD WHY DID MY PROJECT GET FUCKED");
         }

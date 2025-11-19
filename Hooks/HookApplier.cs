@@ -8,9 +8,9 @@ using HarmonyLib;
 using BepInEx;
 using BepInEx.Logging;
 
-namespace TemplateMod
+namespace My_Nice_Rain_World_Mod.Hooks
 {
-    internal class Hooks
+    internal class HookApplier
     {
         public static void Apply()
         {

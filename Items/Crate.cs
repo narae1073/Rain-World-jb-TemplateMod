@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using My_Nice_Rain_World_Mod.Utils;
+using Newtonsoft.Json.Linq;
 using RWCustom;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using System.Diagnostics;
 
-namespace TemplateMod
+namespace My_Nice_Rain_World_Mod.Items
 {
     public class Crate : PhysicalObject, IDrawable
     {
@@ -16,9 +18,9 @@ namespace TemplateMod
         private int logCounter = 0;
         float bodyChunkRad = 20f;
         int middleBodyChunkIndex = 0;
-        float distance = 17f; // distance가 너무 길면 충돌이 일어나지 못함. 충돌이 일어나지 못하는건 elasticity와도 관계있음 
-        int edgeLength = 11;
-        float elasticity = 0.007f;
+        float distance = 20f; // distance가 너무 길면 충돌이 일어나지 못함. 충돌이 일어나지 못하는건 elasticity와도 관계있음 
+        int edgeLength = 7;
+        float elasticity = 0.00005f;
         public Crate(CrateAbstract abstr) : base(abstr)
         {
             float mass = 3f;
@@ -149,10 +151,18 @@ namespace TemplateMod
         // This initiates your sprites and what sprite they actually use in game
         public void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
+            string myFilePath = "D:\\GitRepo\\Rain-World-jb-TemplateMod\\Resources\\atlas_elements.txt";
+            string[] atlasElements = ElementParser.LoadElementsFromFile(myFilePath);
+            string str = null;
+            Console.WriteLine($"총 {atlasElements.Length}개의 엘리먼트 로드 완료.");
+
             sLeaser.sprites = new FSprite[bodyChunks.Length];
 
             for (int i = 0; i < bodyChunks.Length; i++)
-                sLeaser.sprites[i] = new FSprite("buttonSquareB");
+            {
+                str = atlasElements[i+500];
+                sLeaser.sprites[i] = new FSprite(str);
+            }
 
             AddToContainer(sLeaser, rCam, null);
 
@@ -176,7 +186,7 @@ namespace TemplateMod
         public void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
         {
             foreach (var sprite in sLeaser.sprites)
-                sprite.color = palette.waterSurfaceColor1;
+                sprite.color = palette.blackColor;
         }
 
         // FContainer? 는 널 값을 가질 수 있다는 의미

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TemplateMod.Creatures
+namespace My_Nice_Rain_World_Mod.Creatures
 {
     public static class critobTemplate
     {

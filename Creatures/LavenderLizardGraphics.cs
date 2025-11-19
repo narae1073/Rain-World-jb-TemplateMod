@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using LizardCosmetics;
 
-namespace TemplateMod.Creatures
+namespace My_Nice_Rain_World_Mod.Creatures
 {
     sealed class LavenderLizardGraphics : LizardGraphics
     {

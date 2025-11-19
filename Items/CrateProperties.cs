@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fisobs.Properties;
 
-namespace TemplateMod
+namespace My_Nice_Rain_World_Mod.Items
 {
     public class CrateProperties : ItemProperties
     {

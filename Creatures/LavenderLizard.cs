@@ -7,7 +7,7 @@ using RWCustom;
 using UnityEngine; // UnityEngine.Random 등을 사용하기 위해 필요
 using Watcher; // LizardState.RotType 등을 사용하기 위해 필요 (LizardState가 Watcher 네임스페이스에 있다면)
 
-namespace TemplateMod.Creatures
+namespace My_Nice_Rain_World_Mod.Creatures
 {
     internal class LavenderLizard : Lizard
     {

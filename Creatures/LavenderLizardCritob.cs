@@ -12,7 +12,7 @@ using UnityEngine;
 using RWCustom;
 using Watcher;
 
-namespace TemplateMod.Creatures
+namespace My_Nice_Rain_World_Mod.Creatures
 {
     public class LavenderLizardCritob : Critob
     {

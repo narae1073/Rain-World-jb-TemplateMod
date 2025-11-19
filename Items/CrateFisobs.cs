@@ -9,7 +9,7 @@ using Fisobs.Properties;
 using Fisobs.Sandbox;
 using UnityEngine;
 
-namespace TemplateMod
+namespace My_Nice_Rain_World_Mod.Items
 {
     internal class CrateFisobs : Fisob
     {
