@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "TemplateMod": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false,
+      "nativeDebugging": false
+    },
+    "프로필 1": {
+      "commandName": "Executable",
+      "executablePath": "D:\\SteamLibrary\\steamapps\\common\\Rain World\\RainWorld.exe",
+      "workingDirectory": "D:\\SteamLibrary\\steamapps\\common\\Rain World",
+      "nativeDebugging": true
+    }
+  }
+}

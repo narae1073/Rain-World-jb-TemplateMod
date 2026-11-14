@@ -1,0 +1,3 @@
+<Reference Include="PUBLIC-Assembly-CSharp">
+	<HintPath>..\..\SteamLibrary\steamapps\common\Rain World\BepInEx\utils\PUBLIC-Assembly-CSharp.dll</HintPath>
+</Reference>
